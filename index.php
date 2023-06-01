@@ -155,7 +155,7 @@
 			</div>
 		</div>
 	</div>
-	 <!-- Header -->
+	<!-- Header -->
 	<?php 
 		include_once("includes/header.php");
 	?>

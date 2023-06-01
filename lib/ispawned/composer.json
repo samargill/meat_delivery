@@ -1,0 +1,5 @@
+{
+    "require": {
+        "mxrxdxn/pwned-passwords": "^2.1"
+    }
+}
