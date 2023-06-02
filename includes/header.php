@@ -2,10 +2,6 @@
 		<div class="mobile-promotion">
 			<span>Grand opening, <strong>up to 15%</strong> off all items. Only <strong>3 days</strong> left</span>
 		</div>
-		<?php 
-			if (true)
-			{
-		?>
 		<div class="header-top header-top-ptb-1 d-none d-lg-block">
 			<div class="container">
 				<div class="row align-items-center">
@@ -14,7 +10,7 @@
 							<ul>
 								<li><a href="about">About Us</a></li>
 								<li><a href="my-account">My Account</a></li>
-								<li><a href="order-track">Order Tracking</a></li>
+								<li><a href="order-tracking">Order Tracking</a></li>
 							</ul>
 						</div>
 					</div>
@@ -31,49 +27,12 @@
 						<div class="header-info header-info-right">
 							<ul>
 								<li>Need help? Call Us: <strong class="text-brand"> + 1800 900</strong></li>
-								<?php 
-									if (false):
-								?>
-								<li>
-									<a class="language-dropdown-active" href="#">English <i class="fi-rs-angle-small-down"></i></a>
-									<ul class="language-dropdown">
-										<li>
-											<a href="#"><img src="assets/imgs/theme/flag-fr.png" alt="">Français</a>
-										</li>
-										<li>
-											<a href="#"><img src="assets/imgs/theme/flag-dt.png" alt="">Deutsch</a>
-										</li>
-										<li>
-											<a href="#"><img src="assets/imgs/theme/flag-ru.png" alt="">Pусский</a>
-										</li>
-									</ul>
-								</li>
-								<li>
-									<a class="language-dropdown-active" href="#">USD <i class="fi-rs-angle-small-down"></i></a>
-									<ul class="language-dropdown">
-										<li>
-											<a href="#"><img src="assets/imgs/theme/flag-fr.png" alt="">INR</a>
-										</li>
-										<li>
-											<a href="#"><img src="assets/imgs/theme/flag-dt.png" alt="">MBP</a>
-										</li>
-										<li>
-											<a href="#"><img src="assets/imgs/theme/flag-ru.png" alt="">EU</a>
-										</li>
-									</ul>
-								</li>
-								<?php 
-									endif;
-								?>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<?php 
-			}
-		?>
 		<div class="header-middle header-middle-ptb-1 d-none d-lg-block">
 			<div class="container">
 				<div class="header-wrap">
@@ -96,32 +55,11 @@
 									<option>Noodles & Rice</option>
 									<option>Ice cream</option>
 								</select>
-								<input type="text" placeholder="Search for items...">
+								<input type="text" placeholder="Search for products...">
 							</form>
 						</div>
 						<div class="header-action-right">
 							<div class="header-action-2">
-								<?php 
-									if (false)
-									{
-								?>
-								<div class="header-action-icon-2">
-									<a href="shop-compare.html">
-										<img class="svgInject" alt="Nest" src="assets/imgs/theme/icons/icon-compare.svg">
-										<span class="pro-count blue">3</span>
-									</a>
-									<a href="shop-compare.html"><span class="lable ml-0">Compare</span></a>
-								</div>
-								<div class="header-action-icon-2">
-									<a href="shop-wishlist.html">
-										<img class="svgInject" alt="Nest" src="assets/imgs/theme/icons/icon-heart.svg">
-										<span class="pro-count blue">6</span>
-									</a>
-									<a href="shop-wishlist.html"><span class="lable">Wishlist</span></a>
-								</div>
-								<?php 
-									}
-								?>
 								<div class="header-action-icon-2">
 									<a class="mini-cart-icon" href="shop-cart.html">
 										<img alt="Nest" src="assets/imgs/theme/icons/icon-cart.svg">
@@ -184,7 +122,7 @@
 					<div class="logo logo-width-1 d-block d-lg-none">
 						<a href="./"><img src="assets/imgs/theme/logo.svg" alt="logo"></a>
 					</div>
-					<div class="header-nav d-none d-lg-flex">
+					<div class="header-nav d-none d-lg-flex" style="width: 100%;">
 						<div class="main-categori-wrap d-none d-lg-block">
 							<a class="categories-button-active" href="#">
 								<span class="fi-rs-apps"></span> <span class="et">Browse</span> Categories
@@ -264,7 +202,7 @@
 										<a href="about">About Us</a>
 									</li>
 									<li>
-										<a href="contact-us">Contact Us</a>
+										<a href="contact">Contact Us</a>
 									</li>
 								</ul>
 							</nav>
@@ -357,7 +295,7 @@
 			<div class="mobile-header-content-area">
 				<div class="mobile-search search-style-3 mobile-header-border">
 					<form action="#">
-						<input type="text" placeholder="Search for items…">
+						<input type="text" placeholder="Search for products...">
 						<button type="submit"><i class="fi-rs-search"></i></button>
 					</form>
 				</div>
@@ -366,53 +304,10 @@
 					<nav>
 						<ul class="mobile-menu font-heading">
 							<li class="menu-item-has-children">
-								<a href="index.html">Home</a>
-								<ul class="dropdown">
-									<li><a href="index.html">Home 1</a></li>
-									<li><a href="index-2.html">Home 2</a></li>
-									<li><a href="index-3.html">Home 3</a></li>
-									<li><a href="index-4.html">Home 4</a></li>
-									<li><a href="index-5.html">Home 5</a></li>
-									<li><a href="index-6.html">Home 6</a></li>
-								</ul>
+								<a href="./">Home</a>
 							</li>
 							<li class="menu-item-has-children">
-								<a href="shop-grid-right.html">shop</a>
-								<ul class="dropdown">
-									<li><a href="shop-grid-right.html">Shop Grid – Right Sidebar</a></li>
-									<li><a href="shop-grid-left.html">Shop Grid – Left Sidebar</a></li>
-									<li><a href="shop-list-right.html">Shop List – Right Sidebar</a></li>
-									<li><a href="shop-list-left.html">Shop List – Left Sidebar</a></li>
-									<li><a href="shop-fullwidth.html">Shop - Wide</a></li>
-									<li class="menu-item-has-children">
-										<a href="#">Single Product</a>
-										<ul class="dropdown">
-											<li><a href="shop-product-right.html">Product – Right Sidebar</a></li>
-											<li><a href="shop-product-left.html">Product – Left Sidebar</a></li>
-											<li><a href="shop-product-full.html">Product – No sidebar</a></li>
-											<li><a href="shop-product-vendor.html">Product – Vendor Infor</a></li>
-										</ul>
-									</li>
-									<li><a href="shop-filter.html">Shop – Filter</a></li>
-									<li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
-									<li><a href="shop-cart.html">Shop – Cart</a></li>
-									<li><a href="shop-checkout.html">Shop – Checkout</a></li>
-									<li><a href="shop-compare.html">Shop – Compare</a></li>
-									<li class="menu-item-has-children">
-										<a href="#">Shop Invoice</a>
-										<ul class="dropdown">
-											<li><a href="shop-invoice-1.html">Shop Invoice 1</a></li>
-											<li><a href="shop-invoice-2.html">Shop Invoice 2</a></li>
-											<li><a href="shop-invoice-3.html">Shop Invoice 3</a></li>
-											<li><a href="shop-invoice-4.html">Shop Invoice 4</a></li>
-											<li><a href="shop-invoice-5.html">Shop Invoice 5</a></li>
-											<li><a href="shop-invoice-6.html">Shop Invoice 6</a></li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li class="menu-item-has-children">
-								<a href="#">Vendors</a>
+								<a href="shop-grid-right.html">Browse Categories</a>
 								<ul class="dropdown">
 									<li><a href="vendors-grid.html">Vendors Grid</a></li>
 									<li><a href="vendors-list.html">Vendors List</a></li>
@@ -423,78 +318,16 @@
 								</ul>
 							</li>
 							<li class="menu-item-has-children">
-								<a href="#">Mega menu</a>
-								<ul class="dropdown">
-									<li class="menu-item-has-children">
-										<a href="#">Women's Fashion</a>
-										<ul class="dropdown">
-											<li><a href="shop-product-right.html">Dresses</a></li>
-											<li><a href="shop-product-right.html">Blouses & Shirts</a></li>
-											<li><a href="shop-product-right.html">Hoodies & Sweatshirts</a></li>
-											<li><a href="shop-product-right.html">Women's Sets</a></li>
-										</ul>
-									</li>
-									<li class="menu-item-has-children">
-										<a href="#">Men's Fashion</a>
-										<ul class="dropdown">
-											<li><a href="shop-product-right.html">Jackets</a></li>
-											<li><a href="shop-product-right.html">Casual Faux Leather</a></li>
-											<li><a href="shop-product-right.html">Genuine Leather</a></li>
-										</ul>
-									</li>
-									<li class="menu-item-has-children">
-										<a href="#">Technology</a>
-										<ul class="dropdown">
-											<li><a href="shop-product-right.html">Gaming Laptops</a></li>
-											<li><a href="shop-product-right.html">Ultraslim Laptops</a></li>
-											<li><a href="shop-product-right.html">Tablets</a></li>
-											<li><a href="shop-product-right.html">Laptop Accessories</a></li>
-											<li><a href="shop-product-right.html">Tablet Accessories</a></li>
-										</ul>
-									</li>
-								</ul>
+								<a href="#">Shop Products</a>
 							</li>
 							<li class="menu-item-has-children">
 								<a href="blog-category-fullwidth.html">Blog</a>
-								<ul class="dropdown">
-									<li><a href="blog-category-grid.html">Blog Category Grid</a></li>
-									<li><a href="blog-category-list.html">Blog Category List</a></li>
-									<li><a href="blog-category-big.html">Blog Category Big</a></li>
-									<li><a href="blog-category-fullwidth.html">Blog Category Wide</a></li>
-									<li class="menu-item-has-children">
-										<a href="#">Single Product Layout</a>
-										<ul class="dropdown">
-											<li><a href="blog-post-left.html">Left Sidebar</a></li>
-											<li><a href="blog-post-right.html">Right Sidebar</a></li>
-											<li><a href="blog-post-fullwidth.html">No Sidebar</a></li>
-										</ul>
-									</li>
-								</ul>
 							</li>
 							<li class="menu-item-has-children">
-								<a href="#">Pages</a>
-								<ul class="dropdown">
-									<li><a href="about">About Us</a></li>
-									<li><a href="page-contact.html">Contact</a></li>
-									<li><a href="page-account.html">My Account</a></li>
-									<li><a href="page-login.html">Login</a></li>
-									<li><a href="page-register.html">Register</a></li>
-									<li><a href="page-forgot-password.html">Forgot password</a></li>
-									<li><a href="page-reset-password.html">Reset password</a></li>
-									<li><a href="page-purchase-guide.html">Purchase Guide</a></li>
-									<li><a href="page-privacy-policy.html">Privacy Policy</a></li>
-									<li><a href="page-terms.html">Terms of Service</a></li>
-									<li><a href="page-404.html">404 Page</a></li>
-								</ul>
+								<a href="about">About</a>
 							</li>
 							<li class="menu-item-has-children">
-								<a href="#">Language</a>
-								<ul class="dropdown">
-									<li><a href="#">English</a></li>
-									<li><a href="#">French</a></li>
-									<li><a href="#">German</a></li>
-									<li><a href="#">Spanish</a></li>
-								</ul>
+								<a href="contact">Contact</a>
 							</li>
 						</ul>
 					</nav>
@@ -519,7 +352,7 @@
 					<a href="#"><img src="assets/imgs/theme/icons/icon-pinterest-white.svg" alt=""></a>
 					<a href="#"><img src="assets/imgs/theme/icons/icon-youtube-white.svg" alt=""></a>
 				</div>
-				<div class="site-copyright">Copyright 2022 © Nest. All rights reserved. Powered by AliThemes.</div>
+				<div class="site-copyright">Copyright 2022 © Nest. All rights reserved.</div>
 			</div>
 		</div>
 	</div>
