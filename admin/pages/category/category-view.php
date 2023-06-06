@@ -5,7 +5,7 @@
 	include($PagePath."lib/variables.php");
 	include($PagePath."lib/opencon.php");
 	include($PagePath."lib/session.php");
-	//CheckRight("View","Redirect");
+	CheckRight("View","Redirect");
 	include($PagePath."lib/functions.php");
 	include($PagePath."lib/combos.php");
 
@@ -50,7 +50,7 @@
 		<section class="content">
 			<div class="container-fluid">
 				<div class="card card-outline card-primary">
-					<form name="Form" role="form" action="userview" method="post">
+					<form name="Form" role="form" action="category-view" method="post">
 						<div class="card-body">
 							<div class="row">
 								<div class="col-md-4">
@@ -58,7 +58,7 @@
 										<?php
 											$ComboData = array();
 											$ComboData[0] = "-- Show All --";
-											$ComboData[1] = "Category Name";
+											$ComboData[1] = "Name";
 										?>
 										<label>Search By :</label>
 										<?php
@@ -73,97 +73,83 @@
 							</div>
 							<div class="row">
 								<div class="col-md-4">
-									<button type="submit" name="btnSearch" class="btn btn-primary">Search Category</button>
+									<button type="submit" name="btnSearch" class="btn btn-primary"><i class="fas fa-search"></i>&nbsp; Search Category</button>
+								</div>
+								<div class="col-md-4">
+									<button type="button" name="btnAddCategory" id="btnAddCategory" class="btn btn-success">
+										<i class="fa fa-plus"></i> &nbsp; Add New Category
+									</button>
 								</div>
 							</div>
-							<table id="MyDataTable" class="table table-bordered table-hover">
+							<table id="MyDataTable" class="table table-bordered table-hover table-responsive" style="min-width:800px; width: 100%;">
 								<thead>
 									<tr>
-										<th width="5%"  style="text-align:left;"  >Sr #</th>
-										<th width="15%" style="text-align:left;"  >Type</th>
-										<th width="25%" style="text-align:left;"  >Client Name</th>
-										<th width="20%" style="text-align:left;"  >User Name</th>
-										<th width="10%" style="text-align:left;"  >Mobile</th>
-										<th width="10%" style="text-align:left;"  >Last Login</th>
-										<th width="7%"  style="text-align:left;"  >Status</th>
-										<th width="8%"  style="text-align:center; min-width: 100px;">-</th>
+										<th width="6%"  style="text-align:left;">Sr #</th>
+										<th width="22%" style="text-align:left;">Category Name</th>
+										<th width="40%" style="text-align:left;">Description</th>
+										<th width="22%" style="text-align:left;">Status</th>
+										<th width="10%" style="text-align:center; min-width:80px;">-</th>
 									</tr>
 								</thead>
 								<tbody>
-								<?php
-									$Index = 0;
-									
-									$Name = "firstname";
-									$User = "admin";
-									$AdminTypeID = "admintypeid";
-									$AdminTypeName = "admintypename";
-									$AdminID = "adminid";
-									$Table = "adminlogin";
-									$JoinTable = "admintype";
-									$SessionID = $_SESSION[SessionID];
-									
-									$QuerySelect= "SELECT C.{$User}id As UserID, C.{$Name} As UserName,".
-										" C.email, C.mobile, C.lastlogin, CT.{$AdminTypeName} As UserTypeName,".
-										" TIMESTAMPDIFF(MINUTE,C.lastactive,NOW()) As TimeDiff";
-									$FromTable	= " FROM adminlogin C";
-									$JoinTable	= " INNER JOIN {$JoinTable} CT ON C.{$User}type = CT.{$AdminTypeID}";
-									$QueryWhere = " WHERE C.{$AdminID} = {$SessionID}";
-									$Query = $QuerySelect." ".$FromTable." ".$JoinTable." ".$QueryWhere."";
-									if (strlen($txtSearch) > 0)
-									{
-										if ($cboSearch == 1)
+									<?php
+										$Index = 0;
+										$PerPageRec 	= 50;
+										$Page 			= $_REQUEST['Page'] ?? 1;
+										$PageLink 		= "category-view";
+										$PageParam 		= "cboSearch=".$cboSearch."&txtSearch=".$txtSearch;
+										$QuerySelect 	= " SELECT category_id, name, description, status";
+										$QueryJoin 		= " FROM product_category";
+										$QueryWhere  	= " WHERE 1";
+										if (strlen($txtSearch) > 0)
 										{
-											$Query .= " AND (C.".$Name." LIKE '%".$txtSearch."%')";
+											if ($cboSearch == 1)
+												$QueryWhere .= " AND name LIKE '%".$txtSearch."%'";
 										}
-									}
-									$Query .= " ORDER BY C.".$AdminID." ASC";
-									$rstRow = mysqli_query($Conn,$Query);
-									$Index = 0;
-									while ($objRow = mysqli_fetch_object($rstRow))
-									{
-										if ($objRow->TimeDiff < 15 && $objRow->TimeDiff != "")
+										$Query  = "SELECT COUNT(*) As Total ".$QueryJoin." ".$QueryWhere;
+										$rstRow = mysqli_query($Conn,$Query);
+										$objRow = mysqli_fetch_object($rstRow);
+										$Total  = $objRow->Total;
+										$Query  = $QuerySelect." ".$QueryJoin." ".$QueryWhere." ORDER BY category_id";
+										$rstRow = mysqli_query($Conn,$Query);
+										while ($objRow = mysqli_fetch_object($rstRow))
 										{
-											$LoginStatus =	"<i class=\"fa fa-check-circle text-success\"></i>";
-											$LoginTitle	 = "Online";
-										}
-										elseif ($objRow->TimeDiff >= 15 && $objRow->TimeDiff < 30)
-										{
-											$LoginStatus =	"<i class=\"fa fa-exclamation-circle text-warning\" style=\"color:#f39c12;\"></i>";
-											$LoginTitle	 = "In-Active";
-										}
-										else
-										{
-											$LoginStatus =	"<i class=\"fa fa-times-circle text-danger\"></i>";
-											$LoginTitle	 = "Offline";
-										}
-								?>
-									<tr>
-										<td align="left"  ><?php echo(++$Index);?></td>
-										<td align="left"  ><?php echo($objRow->UserTypeName);?></td>
-										<td align="left"  ><?php echo(UCString(trim($objRow->UserName)));?></td>
-										<td align="left"  ><?php echo($objRow->email);?></td>
-										<td align="left"  ><?php echo($objRow->mobile);?></td>
-										<td align="left"  ><?php echo(ShowDate($objRow->lastlogin,3));?></td>
-										<td align="center"><span data-toggle="tooltip" data-container="body" title="<?php echo $LoginTitle; ?>"><?php echo $LoginStatus; ?></span></td>
+											$Index++;
+											if ($objRow->status == 0)
+											{
+												$Status = "Enabled";
+												$Css    = "text-success";
+											}
+											else
+											{
+												$Status = "Disabled";
+												$Css    = "text-danger";
+											}
+									?>
+									<tr id="Row<?php echo($Index);?>">
+										<td align="left"><?php echo($Index);?></td>
+										<td align="left"><?php echo($objRow->name);?></td>
+										<td align="left"><?php echo($objRow->description);?></td>
+										<td align="center" class="<?php echo($Css);?>"><?php echo($Status);?></td>
 										<td align="center">
 											<div class="btn-group">
-												<button type="button" onclick="EditRights(<?php echo($objRow->UserID);?>);" class="btn bg-purple btn-sm" data-toggle="tooltip" data-container="body" title="User Rights">
-													<i class="fa fa-unlock"></i>
-												</button>
-												<button type="button" onclick="EditUser(<?php echo($objRow->UserID);?>);" class="btn btn-warning btn-sm" data-toggle="tooltip" data-container="body" title="Edit">
+												<button type="button" class="btn btn-warning btn-sm" title="Edit" onclick="EditRecord(<?php echo($objRow->category_id);?>);" data-toggle="tooltip" data-container="body">
 													<i class="fa fa-edit"></i>
 												</button>
-												<button type="button" onclick="DeleteUser(<?php echo($objRow->UserID);?>);" class="btn btn-danger btn-sm" data-toggle="tooltip" data-container="body" title="Delete">
-													<i class="fa fa-trash"></i>
+												<button type="button" class="btn btn-danger btn-sm" title="Delete" onclick="DeleteRecord(<?php echo($objRow->category_id);?>,<?php echo($Index);?>);" data-toggle="tooltip" data-container="body">
+													<i class="fas fa-trash-alt"></i>
 												</button>
 											</div>
 										</td>
 									</tr>
-								<?php
-									}
-								?>
+									<?php
+										}
+									?>
 								</tbody>
 							</table>
+							<?php
+								include($PagePath."includes/paging.php");
+							?>
 						</div>
 					</form>
 				</div>
@@ -184,24 +170,16 @@
 		$(".select2").select2();
 		// Initialize DataTable
 		$('#MyDataTable').DataTable({
-			"paging": true,
+			"paging": false,
 			"lengthChange": false,
 			"searching": false,
 			"ordering": false,
-			"info": true,
+			"info": false,
 			"autoWidth": false,
 			"iDisplayLength": 50,
 			"scrollX": true
 		});
 	});
 </script>
-<?php
-	$GLOBALS["DateRangePickerSingle"] = false;
-	$GLOBALS["DateRangePickerFormatShow"] = "d-m-Y H:i:s";
-	$GLOBALS["DateRangePickerFormatSave"] = "YYYY-MM-DD HH:mm:ss";
-	$GLOBALS["DateRangePickerAlign"] = "left";
-	$GLOBALS["DateRangePickerVAlign"] = "top";
-	include($PagePath."includes/daterangepicker.php");
-?>
 </body>
 </html>

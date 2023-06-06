@@ -5,11 +5,13 @@
 	include($PagePath."lib/opencon.php");
 	include($PagePath."lib/functions.php");
 
-	if (isset($_SESSION[SessionID]))
+	/*if (isset($_SESSION[SessionID]))
 	{
+		echo("Aa gag");
+		die;
 		header("Location: ".$PagePath."main");
 		exit;
-	}
+	}*/
 	if (isset($_REQUEST['btnLogin']))
 	{
 		$Query = "SELECT adminid, admintype, firstname, lastname, password".
