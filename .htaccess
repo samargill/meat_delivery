@@ -1,0 +1,141 @@
+Options All -Indexes
+RewriteEngine on
+
+#Website Under Maintenance
+#RewriteBase /
+#RewriteCond %{REMOTE_ADDR} !=182.176.99.68
+#RewriteCond %{REQUEST_URI} !^/maintenance\.html$
+#RewriteRule ^(.*)$ https://www.primemedic.com.au/maintenance.html [R=307,L]
+
+#Force www:
+RewriteCond %{HTTP_HOST} ^primemedic\.com\.au [NC]
+RewriteRule ^(.*)$ http://www.primemedic.com.au/$1 [R=301,NC]
+
+#Force https
+RewriteCond %{HTTP_HOST} ^www\.primemedic\.com\.au [NC]
+RewriteCond %{HTTPS} off
+RewriteCond %{REQUEST_METHOD} !^POST$
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+#Pages Without PHP Extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [NC,L,QSA]
+
+# Expiry For Images
+<filesMatch ".(jpg|jpeg|png|svg|gif|ico)$">
+	<ifModule mod_headers.c>
+		Header set Cache-Control "max-age=5184000, public"
+	</ifModule>
+</filesMatch>
+
+# Expiry For css and js
+<filesMatch ".(css|js)$">
+	<ifModule mod_headers.c>
+		Header set Cache-Control "max-age=7776000, public"
+	</ifModule>
+</filesMatch>
+
+# Expiry For Fonts
+<filesMatch ".(ttf|eot|woff|woff2)$">
+	<ifModule mod_headers.c>
+		Header set Cache-Control "max-age=31536000, public"
+	</ifModule>
+</filesMatch>
+
+# Block UnWanted Visitor IPs
+<Files *>
+	order allow,deny
+	allow from all
+	deny from 118.211.213.132
+</Files>
+
+#speciality Details Pages
+RewriteRule ^(.*)prescription/speciality/(.*)-([0-9]+)$ prescription/speciality/index?SpeID=($3)
+RewriteRule ^(.*)prescription/diagnose-disease$ prescription/answer-questions?Diagnose
+RewriteRule ^(.*)prescription/medication-safety$ prescription/answer-questions?Safety
+RewriteRule ^(.*)prescription/terms$ prescription/answer-questions?Terms
+
+#Patient Reply
+RewriteRule ^(.*)pr$ patient-reply [QSA,L]
+
+#Patient Payment
+RewriteRule ^(.*)pp$ patient-payment [QSA,L]
+
+#Medicare Update
+RewriteRule ^(.*)mu$ medicare-update [QSA,L]
+
+#Medicare Consent
+RewriteRule ^(.*)mc$ medicare-consent [QSA,L]
+
+#Patient Info Release Consent
+RewriteRule ^(.*)pic$ patient-info-consent [QSA,L]
+
+#Download Patient Certificate
+RewriteRule ^(.*)cd$ cert-download [QSA,L]
+
+#Download Patient Prescription
+RewriteRule ^(.*)pd$ pres-download [QSA,L]
+
+#Rapid Test Client
+RewriteRule ^(.*)rapid-testing/rtp$ rapid-testing/set-password [QSA,L]
+RewriteRule ^(.*)rapidtesting-signout$ rapid-testing/dashboard?Signout
+
+#Medical Product Detail
+RewriteRule ^(.*)medical-product-detail-([0-9]+)$ medical-product-detail?ProID=$2
+
+#Health Library
+RewriteRule ^(.*)health-library/(.*)-([0-9]+)$ health-library/detail?SpeID=($3)
+
+#Investors
+RewriteRule ^(.*)investors-signup-done$ investors/register#content [QSA,L]
+RewriteRule ^(.*)investors-signup-verify$ investors/register?VerifyEmail [QSA,L]
+RewriteRule ^(.*)investors-signup-verify-done$ investors/register?VerifyDone [QSA,L]
+RewriteRule ^(.*)investors-signup-verify-error$ investors/register?VerifyError [QSA,L]
+RewriteRule ^(.*)investors-dasboard-signout$ investors/dashboard?Signout
+
+#Google Analytics Goals
+RewriteRule ^(.*)signup-done$ register#content
+RewriteRule ^(.*)signup-verify$ register?VerifyEmail [QSA,L]
+RewriteRule ^(.*)signup-verify-done$ register?VerifyDone [QSA,L]
+RewriteRule ^(.*)signup-verify-error$ register?VerifyError [QSA,L]
+RewriteRule ^(.*)myaccount-signout$ myaccount?Signout
+
+#Blog
+RewriteRule ^(.*)blog/(.*)-([0-9]+)$ blog/detail?BlogID=$3
+
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html
+	AddOutputFilterByType DEFLATE text/css
+	AddOutputFilterByType DEFLATE text/javascript
+	AddOutputFilterByType DEFLATE text/xml
+	AddOutputFilterByType DEFLATE text/plain
+	AddOutputFilterByType DEFLATE image/x-icon
+	AddOutputFilterByType DEFLATE image/svg+xml
+	AddOutputFilterByType DEFLATE application/rss+xml
+	AddOutputFilterByType DEFLATE application/javascript
+	AddOutputFilterByType DEFLATE application/x-javascript
+	AddOutputFilterByType DEFLATE application/xml
+	AddOutputFilterByType DEFLATE application/xhtml+xml
+	AddOutputFilterByType DEFLATE application/x-font
+	AddOutputFilterByType DEFLATE application/x-font-truetype
+	AddOutputFilterByType DEFLATE application/x-font-ttf
+	AddOutputFilterByType DEFLATE application/x-font-otf
+	AddOutputFilterByType DEFLATE application/x-font-opentype
+	AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+	AddOutputFilterByType DEFLATE font/ttf
+	AddOutputFilterByType DEFLATE font/otf
+	AddOutputFilterByType DEFLATE font/opentype
+	# For Olders Browsers Which Can't Handle Compression
+	BrowserMatch ^Mozilla/4 gzip-only-text/html
+	BrowserMatch ^Mozilla/4\.0[678] no-gzip
+	BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+	Header set X-Frame-Options "SAMEORIGIN"
+	Header set X-XSS-Protection "1; mode=block"
+	Header set X-Content-Type-Options "nosniff"
+	Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains"
+</IfModule>
