@@ -19,7 +19,7 @@
 	}
 	else
 	{
-		$TimeZone = "Australia/Sydney";
+		$TimeZone = "US/Eastern"; //America/New_York
 	}
 	$Query = "SET time_zone = '".$TimeZone."'";
 	mysqli_query($Conn,$Query);

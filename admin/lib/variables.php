@@ -1,9 +1,9 @@
 <?php
-	date_default_timezone_set('Asia/Karachi');
 	session_start();
-	define("SessionID","KS_MeatDeliveryAdminID");
+	date_default_timezone_set('Asia/Karachi');
+	define("SessionID","NC_HalalMeatAdminID");
 	define("DBName","meatdelivery");
 	define("WebsiteSkin","skin-red"); /* skin-blue */
 	define("WebsiteLayout","sidebar-mini");
-	define("PopupID","KS_ITVHouse");
+	define("PopupID","NC_HalalMeat");
 	define("WebsiteUrl","http://localhost/meatdelivery");

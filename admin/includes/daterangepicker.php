@@ -37,11 +37,13 @@
 				endDate: "<?php echo(date($GLOBALS["DateRangePickerFormatShow"],strtotime($txtCloseDate)));?>",
 				linkedCalendars: false,
 				opens: "<?php echo($GLOBALS["DateRangePickerAlign"]);?>",
+				drops: "<?php echo($GLOBALS["DateRangePickerVAlign"]);?>",
 				<?php
 					if ($GLOBALS["DateRangePickerSingle"] == true)
 					{
 				?>
 				singleDatePicker: true,
+				orientation: "top left",
 				<?php
 					}
 				?>
@@ -53,14 +55,10 @@
 					{
 				?>
 				ranges: {
-					'Tomorrow': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today + 86400));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today + 2 * 86400 - 1));?>'],
 					'Today': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today + 86400 - 1));?>'],
 					'Yesterday': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 86400));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 1));?>'],
-					'Yesterday - 1': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 2  * 86400));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 1 * 86400 - 1));?>'],
-					'Yesterday - 2': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 3  * 86400));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 2 * 86400 - 1));?>'],
-					'Yesterday - 3': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 4  * 86400));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 3 * 86400 - 1));?>'],
-					'Last 7 Days': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"],  $Today - 6  * 86400));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today + 86400 - 1));?>'],
-					'Last 30 Days': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"], $Today - 30 * 86400));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today + 86400 - 1));?>'],
+					'Last 7 Days': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 6 * 86400));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today + 86400 - 1));?>'],
+					'Last 30 Days': ['<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today - 30 * 86400));?>', '<?php echo(date($GLOBALS["DateRangePickerFormatShow"],$Today + 86400 - 1));?>'],
 					<?php
 						$MonthStart = mktime(0,0,0,date("m"),1,date("Y"));
 						$MonthClose = mktime(23,59,59,date("m"),date("t",$MonthStart),date("Y"));

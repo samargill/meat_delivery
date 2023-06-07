@@ -47,12 +47,12 @@
 .list-header {
   color: $gray-600;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: bold;
   padding: 10px 4px;
 }
 
 .list-seperator {
-  background-color: $card-border-color;
+  background: $card-border-color;
   height: 1px;
   margin: 15px 0 9px;
 }
@@ -162,7 +162,7 @@
 
 // Rounded and Circle Images
 .img-rounded {
-  @include border-radius($border-radius);
+  @include border-radius($border-radius)
 }
 
 .img-circle {
@@ -216,7 +216,7 @@
 
 // General attachemnt block
 .attachment-block {
-  background-color: $gray-100;
+  background: $gray-100;
   border: 1px solid $card-border-color;
   margin-bottom: 10px;
   padding: 5px;
@@ -259,39 +259,31 @@
   .overlay {
     @include border-radius($border-radius);
     align-items: center;
-    background-color: rgba($white, .7);
+    background: rgba($white, 0.7);
     display: flex;
     justify-content: center;
     z-index: 50;
 
-    /* stylelint-disable selector-class-pattern */
     > .fa,
     > .fas,
     > .far,
     > .fab,
-    > .fal,
-    > .fad,
-    > .svg-inline--fa,
+    > .glyphicon,
     > .ion {
       color: $gray-800;
     }
-    /* stylelint-enable selector-class-pattern */
 
     &.dark {
-      background-color: rgba($black, .5);
+      background: rgba($black, 0.5);
 
-      /* stylelint-disable selector-class-pattern */
       > .fa,
       > .fas,
       > .far,
       > .fab,
-      > .fal,
-      > .fad,
-      > .svg-inline--fa,
+      > .glyphicon,
       > .ion {
         color: $gray-400;
       }
-      /* stylelint-enable selector-class-pattern */
     }
   }
 }
@@ -368,7 +360,7 @@
       border-right: $ribbon-border-size solid transparent;
       border-top: $ribbon-border-size solid #9e9e9e;
       bottom: -$ribbon-border-size;
-      content: "";
+      content: '';
       position: absolute;
     }
 
@@ -401,13 +393,13 @@ pre {
 
 // Blockquotes styles
 blockquote {
-  background-color: $white;
+  background: $white;
   border-left: .7rem solid $primary;
   margin: 1.5em .7rem;
-  padding: .5em .7rem;
+  padding: 0.5em .7rem;
 
   .box & {
-    background-color: $gray-200;
+    background: $gray-200;
   }
 
   p:last-child {
@@ -479,67 +471,9 @@ blockquote {
   border-radius: $button-border-radius-xs;
   font-size: $button-font-size-xs;
   font-weight: 400;
-  padding: $button-padding-y-xs * 2 $button-padding-x-xs * 2;
+  padding: $button-padding-y-xs*2 $button-padding-x-xs*2;
 }
 
 .badge-btn.badge-pill {
   padding: .375rem .6rem;
-}
-
-@include dark-mode () {
-  a:not(.btn):hover {
-    color: lighten($link-color, 10%);
-  }
-  .attachment-block {
-    background-color: lighten($dark, 3.75%);
-
-    .attachment-text {
-      color: $gray-400;
-    }
-  }
-  blockquote {
-    background-color: lighten($dark, 5%);
-
-    @each $color, $value in $theme-colors {
-      &.quote-#{$color} {
-        border-color: $value;
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          color: $value;
-        }
-      }
-    }
-
-    @each $color, $value in $colors {
-      &.quote-#{$color} {
-        border-color: $value;
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-          color: $value;
-        }
-      }
-    }
-  }
-  .close,
-  .mailbox-attachment-close {
-    color: $gray-500;
-    text-shadow: 0 1px 0 $gray-700;
-  }
-  .tab-custom-content {
-    border-color: $gray-600;
-  }
-  .list-group-item {
-    background-color: $dark;
-    border-color: $gray-600;
-  }
 }

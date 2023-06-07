@@ -17,7 +17,7 @@
 .login-page,
 .register-page {
   align-items: center;
-  background-color: $gray-200;
+  background: $gray-200;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -32,15 +32,11 @@
     margin-top: .5rem;
     width: 90%;
   }
-
-  .card {
-    margin-bottom: 0;
-  }
 }
 
 .login-card-body,
 .register-card-body {
-  background-color: $white;
+  background: $white;
   border-top: 0;
   color: #666;
   padding: 20px;
@@ -52,8 +48,7 @@
       &:focus {
         box-shadow: none;
 
-        ~ .input-group-prepend .input-group-text,
-        ~ .input-group-append .input-group-text {
+        & ~ .input-group-append .input-group-text {
           border-color: $input-focus-border-color;
         }
       }
@@ -63,8 +58,7 @@
           box-shadow: none;
         }
 
-        ~ .input-group-prepend .input-group-text,
-        ~ .input-group-append .input-group-text {
+        & ~ .input-group-append .input-group-text {
           border-color: $success;
         }
       }
@@ -74,7 +68,7 @@
           box-shadow: none;
         }
 
-        ~ .input-group-append .input-group-text {
+        & ~ .input-group-append .input-group-text {
           border-color: $danger;
         }
       }
@@ -100,19 +94,4 @@
 
 .social-auth-links {
   margin: 10px 0;
-}
-
-@include dark-mode () {
-  .login-card-body,
-  .register-card-body {
-    background-color: $dark;
-    border-color: $gray-600;
-    color: $white;
-  }
-  .login-logo,
-  .register-logo {
-    a {
-      color: $white;
-    }
-  }
 }

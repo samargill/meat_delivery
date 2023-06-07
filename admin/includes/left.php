@@ -21,7 +21,6 @@
 							" WHERE M.subid = 0 AND M.menustatus = 0".
 							" AND MR.adminid = ".$_SESSION[SessionID]." AND MR.subid = 0".
 							" ORDER BY M.sorting";
-						//echo("<br><br>".$Query); die;
 						$rstRow = mysqli_query($Conn,$Query);
 						while ($objRow = mysqli_fetch_object($rstRow))
 						{

@@ -2,7 +2,7 @@
 // Core: Layout
 //
 
-html {
+html.scroll-smooth {
   scroll-behavior: smooth;
 }
 
@@ -15,7 +15,7 @@ body,
 .wrapper {
   position: relative;
 
-  .content-wrapper {
+  & .content-wrapper {
     min-height: calc(100vh - #{$main-header-height} - #{$main-footer-height});
   }
 
@@ -26,10 +26,9 @@ body,
     &::before {
       margin: 0 auto;
       max-width: $boxed-layout-max-width;
-      overflow: hidden;
     }
 
-    .main-sidebar {
+    & .main-sidebar {
       left: inherit;
     }
   }
@@ -72,8 +71,7 @@ body,
   }
 
   .layout-navbar-fixed.sidebar-mini.sidebar-collapse &,
-  .layout-navbar-fixed.sidebar-mini-md.sidebar-collapse &,
-  .layout-navbar-fixed.sidebar-mini-xs.sidebar-collapse & {
+  .layout-navbar-fixed.sidebar-mini-md.sidebar-collapse & {
     .brand-link {
       height: $main-header-height;
       width: $sidebar-mini-width;
@@ -85,8 +83,7 @@ body,
   }
 
   .layout-navbar-fixed.sidebar-mini.sidebar-collapse.text-sm &,
-  .layout-navbar-fixed.sidebar-mini-md.sidebar-collapse.text-sm &,
-  .layout-navbar-fixed.sidebar-mini-xs.sidebar-collapse.text-sm & {
+  .layout-navbar-fixed.sidebar-mini-md.sidebar-collapse.text-sm & {
     .brand-link {
       height: $main-header-height-sm;
     }
@@ -150,19 +147,6 @@ body,
       }
     }
 
-    @each $name, $color in $colors {
-      .sidebar-dark-#{$name} .brand-link:not([class*="navbar"]) {
-        background-color: $sidebar-dark-bg;
-      }
-
-      .sidebar-light-#{$name} .brand-link:not([class*="navbar"]) {
-        background-color: $sidebar-light-bg;
-      }
-    }
-
-    .main-header.border-bottom-0 ~ .content-wrapper {
-      margin-top: $main-header-height-inner;
-    }
     .content-wrapper {
       margin-top: $main-header-height;
     }
@@ -281,6 +265,17 @@ body,
           z-index: $zindex-main-header + 1;
         }
 
+        // Sidebar variants brand-link fix
+        @each $name, $color in $theme-colors {
+          .sidebar-dark-#{$name} .brand-link:not([class*="navbar"]) {
+            background-color: $sidebar-dark-bg;
+          }
+
+          .sidebar-light-#{$name} .brand-link:not([class*="navbar"]) {
+            background-color: $sidebar-light-bg;
+          }
+        }
+
         .content-wrapper {
           margin-top: $main-header-height;
         }
@@ -352,7 +347,9 @@ body,
     .control-sidebar {
       bottom: 0;
     }
+  }
 
+  .layout-footer-fixed & {
     .main-footer {
       bottom: 0;
       left: 0;
@@ -379,7 +376,9 @@ body,
         .control-sidebar {
           bottom: 0;
         }
+      }
 
+      .layout#{$infix}-footer-fixed & {
         .main-footer {
           bottom: 0;
           left: 0;
@@ -404,7 +403,7 @@ body,
   .layout-top-nav & {
     margin-left: 0;
 
-    .main-header {
+    .main-header {    
       .brand-image {
         margin-top: -.5rem;
         margin-right: .2rem;
@@ -412,21 +411,21 @@ body,
       }
     }
 
-    .main-sidebar {
+    & .main-sidebar {
       bottom: inherit;
       height: inherit;
     }
 
-    .content-wrapper,
-    .main-header,
-    .main-footer {
+    & .content-wrapper,
+    & .main-header,
+    & .main-footer {
       margin-left: 0;
     }
   }
 }
 
 
-body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-mini) {
+body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) {
   .content-wrapper,
   .main-footer,
   .main-header {
@@ -437,7 +436,7 @@ body.sidebar-collapse:not(.sidebar-mini-xs):not(.sidebar-mini-md):not(.sidebar-m
   }
 }
 
-body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) {
+body:not(.sidebar-mini-md) {
   .content-wrapper,
   .main-footer,
   .main-header {
@@ -452,7 +451,10 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) {
     }
 
     @include media-breakpoint-down(md) {
-      margin-left: 0;
+      &,
+      &::before {
+        margin-left: 0;
+      }
     }
   }
 }
@@ -470,36 +472,18 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) {
         margin-left: $sidebar-mini-width;
       }
     }
+
     @include media-breakpoint-down(md) {
-      margin-left: $sidebar-mini-width;
-    }
-    @include media-breakpoint-down(sm) {
-      margin-left: 0;
-    }
-  }
-}
-
-.sidebar-mini-xs {
-  .content-wrapper,
-  .main-footer,
-  .main-header {
-    @include media-breakpoint-up(md) {
-      @include transition(margin-left $transition-speed $transition-fn);
-
-      margin-left: $sidebar-width;
-
-      .sidebar-collapse & {
+      &,
+      &::before {
         margin-left: $sidebar-mini-width;
       }
-    }
-    @include media-breakpoint-down(md) {
-      margin-left: $sidebar-mini-width;
     }
   }
 }
 
 .content-wrapper {
-  background-color: $main-bg;
+  background: $main-bg;
 
   > .content {
     padding: $content-padding-y $content-padding-x;
@@ -514,7 +498,7 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) {
     width: $sidebar-width;
   }
 
-  .sidebar-collapse:not(.sidebar-mini):not(.sidebar-mini-md):not(.sidebar-mini-xs) & {
+  .sidebar-collapse:not(.sidebar-mini):not(.sidebar-mini-md) & {
     &,
     &::before {
       box-shadow: none !important;
@@ -548,16 +532,13 @@ body:not(.sidebar-mini-md):not(.sidebar-mini-xs):not(.layout-top-nav) {
   }
 }
 
-body:not(.layout-fixed) {
+:not(.layout-fixed) {
   .main-sidebar {
     height: inherit;
     min-height: 100%;
     position: absolute;
     top: 0;
-
-    .sidebar {
-      overflow-y: auto;
-    }
+    background-color:#003c52;
   }
 }
 
@@ -569,6 +550,7 @@ body:not(.layout-fixed) {
   .main-sidebar {
     bottom: 0;
     float: none;
+    height: 100vh;
     left: 0;
     position: fixed;
     top: 0;
@@ -577,14 +559,12 @@ body:not(.layout-fixed) {
   .control-sidebar {
     bottom: 0;
     float: none;
+    height: 100vh;
     position: fixed;
     top: 0;
 
     .control-sidebar-content {
       height: calc(100vh - #{$main-header-height});
-      overflow-y: auto;
-      @include scrollbar-width-thin();
-      @include scrollbar-color-gray();
     }
   }
 }
@@ -598,7 +578,7 @@ body:not(.layout-fixed) {
 }
 
 .main-footer {
-  background-color: $main-footer-bg;
+  background: $main-footer-bg;
   border-top: $main-footer-border-top;
   color: lighten($gray-700, 25%);
   padding: $main-footer-padding;
@@ -626,7 +606,7 @@ body:not(.layout-fixed) {
   }
 
   .breadcrumb {
-    background-color: transparent;
+    background: transparent;
     line-height: 1.8rem;
     margin-bottom: 0;
     padding: 0;
@@ -636,6 +616,7 @@ body:not(.layout-fixed) {
     }
   }
 }
+
 
 
 .hold-transition {
@@ -648,61 +629,5 @@ body:not(.layout-fixed) {
   .main-footer {
     transition: none !important;
     animation-duration: 0s !important;
-  }
-}
-
-@include dark-mode () {
-  background-color: $dark-main-bg;
-  color: $white;
-
-  .wrapper {
-    .layout-navbar-fixed & {
-      @each $name, $color in $theme-colors-alt {
-        .sidebar-dark-#{$name} .brand-link:not([class*="navbar"]) {
-          background-color: $sidebar-dark-bg;
-        }
-
-        .sidebar-light-#{$name} .brand-link:not([class*="navbar"]) {
-          background-color: $sidebar-light-bg;
-        }
-      }
-    }
-
-    @each $breakpoint in map-keys($grid-breakpoints) {
-      @include media-breakpoint-up($breakpoint) {
-        $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
-
-        .layout#{$infix}-navbar-fixed & {
-          @each $name, $color in $theme-colors-alt {
-            .sidebar-dark-#{$name} .brand-link:not([class*="navbar"]) {
-              background-color: $sidebar-dark-bg;
-            }
-
-            .sidebar-light-#{$name} .brand-link:not([class*="navbar"]) {
-              background-color: $sidebar-light-bg;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .breadcrumb-item {
-    &.active,
-    + .breadcrumb-item::before {
-      color: $gray-500;
-    }
-  }
-  .main-footer {
-    background-color: $dark;
-    border-color: lighten($dark, 10%);
-  }
-  .content-wrapper {
-    background-color: lighten($dark, 7.5%);
-    color: $white;
-
-    .content-header {
-      color: $white;
-    }
   }
 }

@@ -1,16 +1,12 @@
+var ShowLoading = "<div id=\"ShowLoading\" class=\"text-center\">" +
+	"<img src=\"" + Path + "images/loader.gif\"><br \>Loading ... Please Wait</div>";
 
-var Path = "../<?php echo($PagePath);?>";
-var Path = "";
-var ShowLoading = "<div id=\"ShowLoading\" class=\"text-center\">"+
-	"<img src=\""+Path+"../../../images/loader.gif\"><br \>Loading ... Please Wait</div>";
-
-var ShowReload = "<div class=\"text-center text-danger\">"+
+var ShowReload = "<div class=\"text-center text-danger\">" +
 	"Click Retry To Try Loading Again ...</div>";
 
 var PopupLoader = null;
 
-function ShowLoader()
-{
+function ShowLoader() {
 	PopupLoader = $.alert({
 		title: "",
 		content: ShowLoading,
@@ -23,100 +19,98 @@ function ShowLoader()
 			confirm: {
 				text: "Retry",
 				keys: ['enter'],
-				action: function() {
-					PopupLoader.setTitle("");
-					PopupLoader.setContent(ShowLoading);
-					PopupLoader.buttons.confirm.hide();
-					//ShowLoaderRetry();
+				action: function () {
+					this.setTitle("");
+					this.setContent(ShowLoading);
+					this.buttons.confirm.hide();
+					LoadCars(0,12,0);
 				}
 			}
 		},
-		onOpenBefore: function() {
-			PopupLoader.buttons.confirm.hide();
+		onOpenBefore: function () {
+			this.buttons.confirm.hide();
 		}
 	});
 }
 
-function LoaderFailed()
-{
+function LoaderFailed() {
 	PopupLoader.setTitle("Loading Failed ...");
 	PopupLoader.setContent(ShowReload);
 	PopupLoader.buttons.confirm.show();
 }
 
-function ScrollToContent(ContentID)
-{
-	//alert("Scrolling To "+ContentID);
-	var TopMinus = 0;
+var isMobile = false;
+
+function CheckMobile() {
+	if ($(window).width() <= 768) {
+		isMobile = true;
+	} else {
+		isMobile = false;
+	}
+}
+CheckMobile();
+
+function ScrollToContent(ContentID) {
+	var TopMinus = 50;
+	if (isMobile) {
+		TopMinus = 50;
+	}
+	var ScrLoc = $("#" + ContentID).offset().top - TopMinus;
+	//alert("ScrollToContent = "+ContentID+" = "+ScrLoc);
 	$('html, body').animate({
-		scrollTop: $("#"+ContentID).offset().top - TopMinus
+		scrollTop: ScrLoc
 	}, 'slow');
 }
 
-function ShowError(Err,MsgTitle,MsgText,ScrollTo,FocusTo)
-{
-	var MsgIcon  = "";
+
+function ShowError(Err, MsgTitle, MsgText, ScrollTo, FocusTo) {
+	var MsgIcon = "";
 	var MsgColor = "";
-	if (Err == false)
-	{
-		MsgIcon  = "rocket";
-		MsgColor = "green";
-	}
-	else
-	{
-		MsgIcon  = "warning";
+	if (Err == false) {
+		MsgIcon = "check-circle";
+		MsgColor = "red";
+	} else {
+		MsgIcon = "exclamation-triangle";
 		MsgColor = "red";
 	}
 	$.alert({
 		title: MsgTitle,
-		icon: "fa fa-"+MsgIcon,
+		icon: "fa fa-" + MsgIcon,
 		content: MsgText,
 		type: MsgColor,
 		animation: "scale",
 		closeAnimation: "scale",
-		columnClass: 'col-md-6 col-md-offset-3',
 		scrollToPreviousElement: false,
 		scrollToPreviousElementAnimate: false,
+		columnClass: "col-md-6 col-md-offset-3",
+		zIndex: '1060',
 		buttons: {
-			"OK": {
+			confirm: {
 				text: "OK",
-				btnClass: "btn-blue",
 				keys: ['enter'],
-				action: function() {
-				}
-			}
-		},
-		onClose: function () {
-			if (ScrollTo != undefined)
-			{
-				if (ScrollTo != "")
-				{
-					ScrollToContent(ScrollTo);
-				}
-			}
-			if (FocusTo != undefined)
-			{
-				if (document.getElementById(FocusTo).tagName == "SELECT")
-				{
-					$("#"+FocusTo).select2('open');
-				}
-				else 
-				{
-					$("#"+FocusTo).focus();
+				action: function () {
+					if (ScrollTo != undefined) {
+						ScrollToContent(ScrollTo);
+					}
+					if (FocusTo != undefined) {
+						$("#" + FocusTo).focus();
+					}
 				}
 			}
 		}
 	});
 }
 
-function EditPatient(PatientID)
-{
-	var Win = Popup("../patient/patientedit?PatientID="+PatientID,"KS_PrimeMedic_EditPatient",740,1024,100,100);
-	Win.focus();
-}
-
-function ViewPatientHistory(PatientID)
-{
-	var Win = Popup("../patient/patient-history?PatientID="+PatientID,"KS_PrimeMedic_EditPatient",740,1024,100,100);
-	Win.focus();
-}
+// ===== Scroll To Top ==== 
+$(window).scroll(function (event) {
+	if ($(this).scrollTop() >= 50) {
+		$('#Scroll-To-Top').fadeIn(200);
+	} else {
+		$('#Scroll-To-Top').fadeOut(200);
+	}
+});
+$('#Scroll-To-Top').click(function () {
+	$('body,html').animate({
+		scrollTop: 0
+	}, 800);
+});

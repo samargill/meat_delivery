@@ -1,6 +1,7 @@
 <?php
-	$PageID = array(array(7,0,0));
+	$PageID = array(array(5,2,0),array(10,2,0));
 	$PagePath = "../../";
+	$PageTitle= "User";
 	$PageMenu = "User Management";
 	include($PagePath."lib/variables.php");
 	include($PagePath."lib/opencon.php");
@@ -134,12 +135,13 @@
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h1 class="m-0 text-dark"><?php echo($PageMenu);?></h1>
+						<h1 class="m-0 text-dark"><?php echo($PageTitle);?></h1>
 					</div>
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
 							<li class="breadcrumb-item"><a href="#">Home</a></li>
 							<li class="breadcrumb-item active"><?php echo($PageMenu);?></li>
+							<li class="breadcrumb-item active"><?php echo($PageTitle);?></li>
 						</ol>
 					</div>
 				</div>
@@ -225,10 +227,18 @@
 									<div class="form-group">
 										<label>User Type :</label>
 										<?php
-											DBCombo("cboClientType","admintype","admintypeid","admintypename",
-												"WHERE 1 ORDER BY admintypeid",$cboClientType,"--- Show All ---","form-control select2",
-												"onchange=\"\" style=\"width: 100%;\"");
-											
+											if (isset($_SESSION[SessionID."ClientID"]))
+											{
+												DBCombo("cboClientType","clientusertype","clienttypeid","clienttypename",
+													"WHERE 1 ORDER BY clienttypeid",$cboClientType,"--- Show All ---","form-control select2",
+													"onchange=\"\" style=\"width: 100%;\"");
+											}
+											else
+											{
+												DBCombo("cboClientType","admintype","admintypeid","admintypename",
+													"WHERE 1 ORDER BY admintypeid",$cboClientType,"--- Show All ---","form-control select2",
+													"onchange=\"\" style=\"width: 100%;\"");
+											}	
 										?>
 									</div>
 									<div class="form-group">
@@ -288,7 +298,7 @@
 										$AdminID = "adminid";
 										$Table = "adminlogin";
 										$JoinTable = "admintype";
-										$SessionID = $_SESSION[SessionID];
+										$SessionID = $_SESSION[SessionID."Admin"];
 									}
 									$QuerySelect= "SELECT C.{$User}id As UserID, C.{$Name} As UserName,".
 										" C.email, C.mobile, C.lastlogin, CT.{$AdminTypeName} As UserTypeName,".

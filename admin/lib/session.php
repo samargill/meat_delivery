@@ -14,7 +14,7 @@
 		" WHERE adminid = ".$_SESSION[SessionID];
 	mysqli_query($Conn,$Query);
 	$_SESSION[constant("SessionID")."Time"] = time();
-	
+
 	function CheckRight($OpType,$ActType="Redirect",$ChkRight=null,$UserID=null)
 	{
 		// OpType  = View, Add, Edit, Delete

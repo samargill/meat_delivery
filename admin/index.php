@@ -123,17 +123,21 @@
 		<div class="card">
 			<div class="card-body login-card-body">
 				<p class="login-box-msg mb-3">Sign in to start your session</p>
+				<?php
+					if (isset($_REQUEST['Err']))
+					{
+				?>
 				<p class="login-box-msg mb-3" style="color: red;">
 					<?php
-						if (isset($_REQUEST['Err']))
+						if ($_REQUEST['Err'] == 1)
 						{
-							if ($_REQUEST['Err'] == 1)
-							{
-								echo("Invalid User Name or Password");
-							}
+							echo("Invalid User Name or Password");
 						}
 					?>
 				</p>
+				<?php 
+					}
+				?>
 				<form name="Form" method="post" action="index">
 					<div class="input-group mb-3">
 						<input type="email" name="txtUserName" id="txtUserName" class="form-control" placeholder="Email">

@@ -1,4 +1,3 @@
-	
 	<script>
 		var Path = "<?php echo($PagePath);?>";
 	</script>
@@ -18,7 +17,8 @@
 	<script src="<?php echo($PagePath);?>plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 	<script src="<?php echo($PagePath);?>plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 	<script src="<?php echo($PagePath);?>plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="<?php echo($PagePath);?>dist/js/adminlte.js"></script>
 	<script src="<?php echo($PagePath);?>js/common.js"></script>
-	<script src="<?php echo($PagePath);?>js/functions.js?2"></script>
+	<script src="<?php echo($PagePath);?>js/functions.js"></script>
